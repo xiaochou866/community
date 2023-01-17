@@ -28,7 +28,7 @@ public class MailClient {
             helper.setFrom(from);
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(content, true);
+            helper.setText(content, true); // true允许使用html
             mailSender.send(helper.getMimeMessage());
         } catch (MessagingException e) {
             logger.error("发送邮件失败:" + e.getMessage());

@@ -54,7 +54,7 @@ public class LoginController implements CommunityConstant {
         if(map == null || map.isEmpty()){
             model.addAttribute("msg", "注册成功，我们已经向您的邮箱发送了一封激活邮件，请尽快激活！");
             model.addAttribute("target", "/index");
-            return "/site/operate-result";
+            return "/site/operate-result"; // 注册账号成功之后跳转的页面
         }else{
             model.addAttribute("usernameMsg", map.get("usernameMsg"));
             model.addAttribute("passwordMsg", map.get("passwordMsg"));
@@ -102,15 +102,16 @@ public class LoginController implements CommunityConstant {
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(String username, String password, String code, boolean rememberme,
                         Model model, HttpSession session, HttpServletResponse response){
-        // 检查验证码
+        // 检查验证码 首先进行验证码 如果验证码不正确就不进行以下的操作
         String kaptcha = (String)session.getAttribute("kaptcha");
         if(StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equalsIgnoreCase(code)){
             model.addAttribute("codeMsg", "验证码不正确");
             return  "/site/login";
         }
 
-        // 检查账号、密码
+        // 检查账号、密码 根据是否勾选记住我 确定登录凭证失效的时长
         int expiredSeconds = rememberme ? REMEMBER_EXPIRED_SECONDS:DEFAULT_EXPIRED_SECONDS;
+
         Map<String, Object> map = userService.login(username, password, expiredSeconds);
         if(map.containsKey("ticket")){
             Cookie cookie = new Cookie("ticket", map.get("ticket").toString());

@@ -59,12 +59,12 @@ public class UserService implements CommunityConstant {
         }
 
         if(StringUtils.isBlank(user.getPassword())){
-            map.put("passwordMsg", "账号不能为空");
+            map.put("passwordMsg", "密码不能为空");
             return map;
         }
 
         if(StringUtils.isBlank(user.getEmail())){
-            map.put("emailMsg", "账号不能为空");
+            map.put("emailMsg", "邮箱不能为空");
             return map;
         }
 
@@ -161,6 +161,15 @@ public class UserService implements CommunityConstant {
     }
 
     public void logout(String ticket){
+        // 将登录凭证中的status设置为1
         loginTicketMapper.updateStatus(ticket, 1);
+    }
+
+    public LoginTicket findLoginTicket(String ticket){
+        return loginTicketMapper.selectByTicket(ticket);
+    }
+
+    public int updateHeader(int userId, String headerUrl){
+        return userMapper.updateHeader(userId, headerUrl);
     }
 }
