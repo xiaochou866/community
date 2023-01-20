@@ -1,3 +1,4 @@
+
 package com.nowcoder.community.util;
 
 public interface CommunityConstant {
@@ -25,4 +26,14 @@ public interface CommunityConstant {
      * 记住状态的登录凭证超时时间
      */
     int REMEMBER_EXPIRED_SECONDS = 3600*24*100;
+
+    /**
+     * 实体类型: 帖子 意味着是帖子的评论
+     */
+    int ENTITY_TYPE_POST = 1;
+
+    /**
+     * 实体类型: 评论 意味着是评论的评论
+     */
+    int ENTITY_TYPE_COMMENT = 2;
 }

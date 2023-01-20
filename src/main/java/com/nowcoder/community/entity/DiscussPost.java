@@ -8,7 +8,7 @@ import java.util.Date;
 public class DiscussPost {
 
     private int id;
-    private int userId;
+    private int userId; // 该帖子拥有者的id
     private String title;
     private String content;
     private int type; // 0-普通; 1-置顶
