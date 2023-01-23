@@ -4,7 +4,7 @@ import com.nowcoder.community.annotation.LoginRequired;
 import com.nowcoder.community.entity.User;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityUtil;
-import com.nowcoder.community.util.HostHoler;
+import com.nowcoder.community.util.HostHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +41,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private HostHoler hostHoler;
+    private HostHolder hostHolder;
 
 
     @LoginRequired
@@ -79,7 +79,7 @@ public class UserController {
 
         // 更新当前用户的头像的路径(Web访问路径)
         // http://localhost:8080/community/user/header/xxx.png
-        User user = hostHoler.getUser(); // ? 在什么地方存储的user对象呢? LoginTicketInterceptor.java 在拦截器里根据userId进行对象的查找和存储
+        User user = hostHolder.getUser(); // ? 在什么地方存储的user对象呢? LoginTicketInterceptor.java 在拦截器里根据userId进行对象的查找和存储
         String headerUrl = domain + contextPath + "/user/header/" + fileName;
         userService.updateHeader(user.getId(), headerUrl);
 

@@ -9,7 +9,7 @@ import com.nowcoder.community.service.DiscussPostService;
 import com.nowcoder.community.service.UserService;
 import com.nowcoder.community.util.CommunityConstant;
 import com.nowcoder.community.util.CommunityUtil;
-import com.nowcoder.community.util.HostHoler;
+import com.nowcoder.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +27,7 @@ public class DiscussPostController implements CommunityConstant {
     private DiscussPostService discussPostService;
 
     @Autowired
-    private HostHoler hostHoler;
+    private HostHolder hostHolder;
 
     @Autowired
     private UserService userService;
@@ -39,7 +39,7 @@ public class DiscussPostController implements CommunityConstant {
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addDiscussPost(String title, String content){
-        User user = hostHoler.getUser();
+        User user = hostHolder.getUser();
         if(user == null){
             // 如果用户没有处于登录状态
             return CommunityUtil.getJSONString(403, "你还没有登录哦！");
