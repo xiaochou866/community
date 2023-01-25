@@ -29,7 +29,7 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    // 私信列表
+    // 私信列表 点击index页面上的消息按钮显示 该用户的相关信息
     @RequestMapping(path = "/letter/list", method = RequestMethod.GET)
     public String getLetterList(Model model, Page page) {
         //Integer.valueOf("abc"); // 这里人为设置了一个错误500
@@ -37,25 +37,26 @@ public class MessageController {
         // 分页信息
         page.setLimit(5);
         page.setPath("/letter/list");
-        page.setRows(messageService.findConversationCount(user.getId()));
+        page.setRows(messageService.findConversationCount(user.getId())); // 根据用户id获取所有的会话个数
 
         // 会话列表
         List<Message> conversationList = messageService.findConversations(
                 user.getId(), page.getOffSet(), page.getLimit());
         List<Map<String, Object>> conversations = new ArrayList<>();
+
         if (conversationList != null) {
             for (Message message : conversationList) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("conversation", message);
                 map.put("letterCount", messageService.findLetterCount(message.getConversationId()));
-                map.put("unreadCount", messageService.findLetterUnreadCount(user.getId(), message.getConversationId()));
-                int targetId = user.getId() == message.getFromId() ? message.getToId() : message.getFromId();
+                map.put("unreadCount", messageService.findLetterUnreadCount(user.getId(), message.getConversationId())); // 该用户在该会话上的未读消息数量
+                int targetId = user.getId() == message.getFromId() ? message.getToId() : message.getFromId(); // 为该会话与当前挡路用户所关联的用户id
                 map.put("target", userService.findUserById(targetId));
 
                 conversations.add(map);
             }
         }
-        model.addAttribute("conversations", conversations);
+        model.addAttribute("conversations", conversations); // 该用户在所有会话上的未读消息数量
 
         // 查询未读消息数量
         int letterUnreadCount = messageService.findLetterUnreadCount(user.getId(), null);
