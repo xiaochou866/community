@@ -4,6 +4,7 @@ import com.nowcoder.community.entity.LoginTicket;
 import org.apache.ibatis.annotations.*;
 
 @Mapper
+@Deprecated // 该注解表示不推荐使用
 public interface LoginTicketMapper {
 
     //这里允许写多个字符串可以进行拼接 当你传入的是一个对象的时候Mybatis也会自动进行解包
