@@ -92,7 +92,7 @@ public class UserService implements CommunityConstant {
 
         // 注册用户 所谓的注册用户就是将用户的信息打到库里面
         user.setSalt(CommunityUtil.generateUUID().substring(0, 5));
-        user.setPassword(CommunityUtil.md5(user.getPassword()) + user.getSalt());
+        user.setPassword(CommunityUtil.md5(user.getPassword()+ user.getSalt()));
         user.setType(0);
         user.setStatus(0); // 该字段0表示未激活 1代表账号已激活
         user.setActivationCode(CommunityUtil.generateUUID());
@@ -152,7 +152,7 @@ public class UserService implements CommunityConstant {
         }
 
         // 验证密码
-        password = CommunityUtil.md5(password) + user.getSalt();
+        password = CommunityUtil.md5(password+ user.getSalt());
         if (!user.getPassword().equals(password)) {
             map.put("passwordMsg", "密码不正确");
             return map;
