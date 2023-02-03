@@ -200,7 +200,6 @@ public class MessageController implements CommunityConstant {
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_LIKE);
             messageVO.put("unread", unread);
             model.addAttribute("likeNotice", messageVO);
-
         }
 
         // 查询关注类通知
