@@ -19,8 +19,8 @@ public class DiscussPostService {
     @Autowired
     private SensitiveFilter sensitiveFilter;
 
-    public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit) { // 根据条件查询所有的post
-        return discussPostMapper.selectDiscussPosts(userId, offset, limit);
+    public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit, int orderMode) { // 根据条件查询所有的post
+        return discussPostMapper.selectDiscussPosts(userId, offset, limit, orderMode);
     }
 
     public int findDiscussPostRows(int userId) { // 根据条件查询总的post数据行数
@@ -58,4 +58,7 @@ public class DiscussPostService {
         return discussPostMapper.updateStatus(id, status);
     }
 
+    public int updateScore(int id, double score){
+        return discussPostMapper.updateScore(id, score);
+    }
 }
