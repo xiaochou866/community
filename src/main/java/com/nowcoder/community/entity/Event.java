@@ -9,7 +9,7 @@ public class Event {
     private int userId; // 进行评论 点赞 关注 的人 也就是当前的登录用户
     private int entityType; // 当前用户进行 评论 点赞 关注 的实体的类型
     private int entityId; // 当前用户进行 评论 点赞 关注 的实体的ID
-    private int entityUserId; //toId message发到的对象
+    private int entityUserId; // toId message发到的对象
     private Map<String, Object> data = new HashMap<>();
 
     public String getTopic() {

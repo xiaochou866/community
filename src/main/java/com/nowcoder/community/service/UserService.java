@@ -113,7 +113,7 @@ public class UserService implements CommunityConstant {
         return map;
     }
 
-    public int activation(int userId, String code) {
+    public int activation(int userId, String code) { //这里code是通过前端输入传过来的
         User user = userMapper.selectById(userId);
         if (user.getStatus() == 1) {
             return ACTIVATION_REPEAT;
